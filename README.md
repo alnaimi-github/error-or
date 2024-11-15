@@ -55,6 +55,7 @@
   - [`Else`](#else)
     - [`Else`](#else-1)
     - [`ElseAsync`](#elseasync)
+  - [`AppendErrors`](#appenderrors)
 - [Mixing Features (`Then`, `FailIf`, `Else`, `Switch`, `Match`)](#mixing-features-then-failif-else-switch-match)
 - [Error Types](#error-types)
   - [Built in error types](#built-in-error-types)
@@ -75,6 +76,8 @@ Loving it? Show your support by giving this project a star!
 ## Replace throwing exceptions with `ErrorOr<T>`
 
 This 👇
+
+
 
 ```cs
 public float Divide(int a, int b)
@@ -567,6 +570,36 @@ ErrorOr<string> foo = await result
     .ElseAsync(errors => Task.FromResult($"{errors.Count} errors occurred."));
 ```
 
+## `AppendErrors`
+
+The `AppendErrors` method allows you to add additional errors to an existing `ErrorOr` result.
+
+```cs
+
+ErrorOr result = Error.Validation(description: "Initial error");
+
+/**
+ * Appends additional errors to the existing ErrorOr object.
+ * 
+ * @param errors A list of errors to append.
+ * @return The updated ErrorOr object with the appended errors.
+ */
+result = result.AppendErrors(new List { Error.Validation(description: "Additional error 1"), Error.Validation(description: "Additional error 2") });
+
+if (result.IsError)
+{
+    result.Errors.ForEach(error => Console.WriteLine(error.Description));
+    // Output:
+    // Initial error
+    // Additional error 1
+    // Additional error 2
+}
+
+
+
+```
+
+
 # Mixing Features (`Then`, `FailIf`, `Else`, `Switch`, `Match`)
 
 You can mix `Then`, `FailIf`, `Else`, `Switch` and `Match` methods together.
@@ -705,6 +738,7 @@ public ErrorOr<float> Divide(int a, int b)
     return a / b;
 }
 ```
+
 
 # [Mediator](https://github.com/jbogard/MediatR) + [FluentValidation](https://github.com/FluentValidation/FluentValidation) + `ErrorOr` 🤝
 

@@ -111,4 +111,24 @@ public readonly partial record struct ErrorOr<TValue> : IErrorOr<TValue>
     {
         return errors;
     }
+
+    /// <summary>
+    /// Creates an <see cref="ErrorOr{TValue}"/> from a list of errors.
+    /// </summary>
+    /// <param name="errors">The list of errors to create the <see cref="ErrorOr{TValue}"/> from.</param>
+    /// <returns>An <see cref="ErrorOr{TValue}"/> instance containing the provided errors.</returns>
+    public static ErrorOr<TValue> FromError(List<Error> errors)
+    {
+        return new ErrorOr<TValue>(errors);
+    }
+
+    /// <summary>
+    /// Creates an <see cref="ErrorOr{TValue}"/> from a value.
+    /// </summary>
+    /// <param name="value">The value to create the <see cref="ErrorOr{TValue}"/> from.</param>
+    /// <returns>An <see cref="ErrorOr{TValue}"/> instance containing the provided value.</returns>
+    public static ErrorOr<TValue> FromValue(TValue value)
+    {
+        return new ErrorOr<TValue>(value);
+    }
 }
