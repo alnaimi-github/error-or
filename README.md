@@ -584,7 +584,7 @@ ErrorOr result = Error.Validation(description: "Initial error");
  * @param errors A list of errors to append.
  * @return The updated ErrorOr object with the appended errors.
  */
-result = result.AppendErrors(new List { Error.Validation(description: "Additional error 1"), Error.Validation(description: "Additional error 2") });
+result = result.AppendErrors(new List<Error> { Error.Validation(description: "Additional error 1"), Error.Validation(description: "Additional error 2") });
 
 if (result.IsError)
 {
@@ -594,8 +594,6 @@ if (result.IsError)
     // Additional error 1
     // Additional error 2
 }
-
-
 
 ```
 
