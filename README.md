@@ -785,6 +785,41 @@ public class ValidationBehavior<TRequest, TResponse>(IValidator<TRequest>? valid
 }
 ```
 
+# Enhancements
+
+## Creating `ErrorOr` instances from tuples and custom objects
+
+The `ErrorOrFactory` class now includes additional factory methods to create `ErrorOr` instances from tuples and custom objects. This provides more flexibility and convenience when creating `ErrorOr` instances.
+
+### Example
+
+```cs
+var errorOr = ErrorOrFactory.FromTuple((1, "value"));
+var errorOr = ErrorOrFactory.FromCustomObject(new CustomObject { Id = 1, Name = "value" });
+```
+
+## Improved error handling
+
+The `ErrorType` enum now includes more specific error types for granular error handling. The `Error` struct also includes corresponding factory methods for the new error types.
+
+### Example
+
+```cs
+var error = Error.ValidationError("Validation error occurred");
+var error = Error.DatabaseError("Database error occurred");
+```
+
+## Additional extension methods
+
+The `ErrorOr` extension files now include additional extension methods for enhanced functionality. These methods provide additional functionality, such as chaining operations, transforming values, or handling errors in different ways.
+
+### Example
+
+```cs
+var result = errorOr.Then(value => value * 2)
+                   .Else(errors => Error.Unexpected("Unexpected error occurred"));
+```
+
 # Contribution 🤲
 
 If you have any questions, comments, or suggestions, please open an issue or create a pull request 🙂
@@ -795,4 +830,4 @@ If you have any questions, comments, or suggestions, please open an issue or cre
 
 # License 🪪
 
-This project is licensed under the terms of the [MIT](https://github.com/mantinband/error-or/blob/main/LICENSE) license.
+This project is licensed under the terms of the [MIT](://github.com/mantinband/error-or/blob/main/LICENSE) license.
